@@ -2,13 +2,17 @@ import CreateTask from "./createTask";
 
 let tasksArray=[];
 
-function loadTaskContent() {
+function loadTaskContent(e) {
+    let projectName=e.target.firstChild;
+    console.log(projectName);
     const taskContent=document.querySelector('.right-content');
     const createTaskButton=document.createElement('button');
     createTaskButton.classList.add('task-button');
     createTaskButton.innerText='Add task';
     taskContent.appendChild(createTaskButton);
     createTaskButton.addEventListener('click', showTaskForm);
+
+    return projectName;
 }
 
 function showTaskForm(e) {
@@ -38,15 +42,16 @@ function showTaskForm(e) {
 }
 
 function getTaskFormValues(e) {
+    let project=loadTaskContent();
     let taskName=document.getElementById('taskName').value;
     let taskDescription=document.getElementById('taskDescription').value;
     let taskdueDate=document.getElementById('task-due').value;
 
-    addTaskToArray(taskName, taskDescription, taskdueDate);
+    addTaskToArray(project,taskName, taskDescription, taskdueDate);
 }
 
-function addTaskToArray(title,description,dueDate) {
-    let newTask=new CreateTask(title,description,dueDate);
+function addTaskToArray(project,title,description,dueDate) {
+    let newTask=new CreateTask(project,title,description,dueDate);
     tasksArray.push(newTask);
     console.log(tasksArray);
     showTaskList()
@@ -58,7 +63,7 @@ function showTaskList() {
     for (let i=0;i<tasksArray.length;i++) {
         let taskExample=document.createElement('li');
         taskList.appendChild(taskExample);
-        
+
         let taskTitlePara=document.createElement('p');
         taskTitlePara.innerText=`${tasksArray[i].title}`;
         taskExample.appendChild(taskTitlePara);

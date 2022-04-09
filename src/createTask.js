@@ -5,6 +5,30 @@ class CreateTask {
         this.dueDate=dueDate;
         this.priorityNumber=priorityNumber;
     }
+
+    setTitle(title) {
+        this.title=title;    
+    }
+
+    getTitle() {
+        return this.title;
+    }
+
+    setDesc(description) {
+        this.description=description;
+    }
+    
+    getDesc() {
+        return this.description;
+    }
+
+    setDate() {
+        this.dueDate=this.dueDate;
+    }
+
+    getDate() {
+        return this.dueDate;
+    }
 }
 
 export default CreateTask;
