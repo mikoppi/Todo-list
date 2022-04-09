@@ -1,3 +1,5 @@
+import loadTaskContent from "./tasksDOM";
+
 let projectsArray=[];
 
 function createNewProject() {
@@ -23,7 +25,6 @@ function showProjectForm(e) {
   cancelButton.addEventListener('click',() => {
       projectForm.innerHTML='';
   });
-
 }
 
 function addProjectToList(e) {
@@ -31,14 +32,16 @@ function addProjectToList(e) {
     if (projectName=='') return;
     projectsArray.push(projectName);
     showProjectList();
-
+    closeProjectForm();
 }
+
 function showProjectList() {
     const projectList=document.querySelector('.projects-ul');
     projectList.innerHTML='';
     for (let i=0;i<projectsArray.length;i++) {
         let projectExample=document.createElement('li');
         projectExample.classList.add(i);
+        projectExample.addEventListener('click', loadTaskContent);
         projectExample.innerText=projectsArray[i];
         projectList.appendChild(projectExample);
 
@@ -51,26 +54,15 @@ function showProjectList() {
             projectsArray.splice(deleteIndex,1)
             showProjectList();
         });
-
-        let renameButton=document.createElement('button');
-        renameButton.classList.add(i);
-        renameButton.innerText='Rename';
-        projectExample.appendChild(renameButton);
-        renameButton.addEventListener('click',function() {
-            let renameIndex=renameButton.className;
-            projectsArray.splice(renameIndex,1)
-            showProjectList();
-        });
-
-
     }
 }
 
-
-
 function closeProjectForm() {
-    
+    const projectForm = document.querySelector(".project-form");
+    projectForm.innerHTML='';   
 }
+
+
 
 
 export default createNewProject;
