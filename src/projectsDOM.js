@@ -1,6 +1,7 @@
 import loadTaskContent from "./tasksDOM";
+import Project from "./createProject"
 
-let projectsArray=[];
+export let projectsArray=[];
 
 function createNewProject() {
   const projectButton = document.querySelector(".add-project");
@@ -30,7 +31,7 @@ function showProjectForm(e) {
 function addProjectToList(e) {
     let projectName=document.getElementById('projectInput').value;
     if (projectName=='') return;
-    projectsArray.push(projectName);
+    projectsArray.push(new Project(projectName));
     showProjectList();
     closeProjectForm();
 }
@@ -42,7 +43,7 @@ function showProjectList() {
         let projectExample=document.createElement('li');
         projectExample.classList.add(i);
         projectExample.addEventListener('click', loadTaskContent);
-        projectExample.innerText=projectsArray[i];
+        projectExample.innerText=projectsArray[i].getName();
         projectList.appendChild(projectExample);
 
         let deleteButton=document.createElement('button');
@@ -66,3 +67,5 @@ function closeProjectForm() {
 
 
 export default createNewProject;
+
+
