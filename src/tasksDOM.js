@@ -1,24 +1,26 @@
 import CreateTask from "./createTask";
 import Project from "./createProject";
-import projectsArray from "./projectsDOM";
+import { projectsArray } from "./projectsDOM.js";
 
 let tasksArray=[];
 
 function loadTaskContent(e) {
-    //let projectName=e.target.firstChild;
-    //console.log(projectName);
+    let projectClassNumber=e.target.className;
+    console.log(projectClassNumber);
     const taskContent=document.querySelector('.right-content');
     const createTaskButton=document.createElement('button');
     createTaskButton.classList.add('task-button');
     createTaskButton.innerText='Add task';
     taskContent.appendChild(createTaskButton);
-    createTaskButton.addEventListener('click', showTaskForm);
+    createTaskButton.addEventListener('click', (event) => ((arg) => {
+        showTaskForm(event, arg);
+      })(projectClassNumber));
 
 }
 
-function showTaskForm(e) {
+function showTaskForm(e,projectClassNumber) {
     const taskForm = document.querySelector(".task-form");
-    taskForm.innerHTML = `<form id="taskForm" class="" autocomplete="off">
+    taskForm.innerHTML = `<form id="taskForm" class="${projectClassNumber}" autocomplete="off">
                                 <div class="inputField">
                                     <input type="text" id="taskName" placeholder="Enter task Name" maxlength="24">
                                     <input type="text" id="taskDescription" placeholder="Description" maxlength="50">
@@ -32,7 +34,9 @@ function showTaskForm(e) {
                             </form>`;
     
     const submitTaskButton=document.querySelector('.taskSubmitBtn');
-    submitTaskButton.addEventListener('click', getTaskFormValues);
+    submitTaskButton.addEventListener('click', (event) => ((arg) => {
+        getTaskFormValues(event, arg);
+      })(projectClassNumber));
 
     const cancelTaskButton=document.querySelector('.taskCancelBtn');
     cancelTaskButton.addEventListener('click',() => {
@@ -42,22 +46,23 @@ function showTaskForm(e) {
                           
 }
 
-function getTaskFormValues(e) {
+function getTaskFormValues(e, projectClassNumber) {
     let taskName=document.getElementById('taskName').value;
     let taskDescription=document.getElementById('taskDescription').value;
     let taskdueDate=document.getElementById('task-due').value;
 
-    addTaskToArray(taskName, taskDescription, taskdueDate);
+    addTaskToArray(taskName, taskDescription, taskdueDate, projectClassNumber);
 }
 
-function addTaskToArray(title,description,dueDate) {
+function addTaskToArray(title,description,dueDate, projectClassNumber) {
     let newTask=new CreateTask(title,description,dueDate);
-    Project.addTask(newTask);
-    console.log(Project.tasks);
-    showTaskList()
+    projectsArray[projectClassNumber].addTask(newTask);
+    let tasksFromGivenProject=projectsArray[projectClassNumber].getTasks();
+    console.log(projectsArray[projectClassNumber].tasks);
+    showTaskList(tasksFromGivenProject)
 } 
 
-function showTaskList() {
+function showTaskList(tasksArray) {
     const taskList=document.querySelector('.task-ul');
     taskList.innerHTML='';
     for (let i=0;i<tasksArray.length;i++) {
@@ -85,7 +90,7 @@ function showTaskList() {
         deleteTaskButton.addEventListener('click',function() {
             let deleteIndex=deleteTaskButton.className;
             tasksArray.splice(deleteIndex,1)
-            showTaskList();
+            showTaskList(tasksArray);
         });
     }
 }

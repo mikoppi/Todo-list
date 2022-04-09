@@ -32,6 +32,7 @@ function addProjectToList(e) {
     let projectName=document.getElementById('projectInput').value;
     if (projectName=='') return;
     projectsArray.push(new Project(projectName));
+    console.log(projectsArray);
     showProjectList();
     closeProjectForm();
 }

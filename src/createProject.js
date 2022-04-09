@@ -21,15 +21,15 @@ export default class Project {
     }
   
     getTask(taskName) {
-      return this.tasks.find((task) => task.getName() === taskName)
+      return this.tasks.find((task) => task.getTitle() === taskName)
     }
   
     contains(taskName) {
-      return this.tasks.some((task) => task.getName() === taskName)
+      return this.tasks.some((task) => task.getTitle() === taskName)
     }
   
     addTask(newTask) {
-      if (this.tasks.find((task) => task.getName() === newTask.name)) return
+      if (this.tasks.find((task) => task.getTitle() === newTask.name)) return
       this.tasks.push(newTask)
     }
   
@@ -37,3 +37,4 @@ export default class Project {
       this.tasks = this.tasks.filter((task) => task.name !== taskName)
     }
 }
+  
