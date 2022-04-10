@@ -2,16 +2,25 @@ import CreateTask from "./createTask";
 import Project from "./createProject";
 import { projectsArray } from "./projectsDOM.js";
 
-let tasksArray=[];
 
 function loadTaskContent(e) {
+    clearTaskList();
+    clearTaskForm();
     let projectClassNumber=e.target.className;
+    showTaskList(projectsArray[projectClassNumber].getTasks());
     console.log(projectClassNumber);
     const taskContent=document.querySelector('.right-content');
-    const createTaskButton=document.createElement('button');
-    createTaskButton.classList.add('task-button');
-    createTaskButton.innerText='Add task';
-    taskContent.appendChild(createTaskButton);
+    let title=document.querySelector('.content-title');
+    title.innerText=projectsArray[projectClassNumber].getName();
+    const createTaskButton=document.querySelector('.task-button');
+    if (projectsArray.length==0) {
+    createTaskButton.setAttribute('hidden');
+    }
+    createTaskButton.removeAttribute('hidden');
+    //createTaskButton.classList.add(`task-button-${projectClassNumber}`);
+    //createTaskButton.innerText='Add task';
+    taskContent.prepend(title);
+
     createTaskButton.addEventListener('click', (event) => ((arg) => {
         showTaskForm(event, arg);
       })(projectClassNumber));
@@ -60,6 +69,7 @@ function addTaskToArray(title,description,dueDate, projectClassNumber) {
     let tasksFromGivenProject=projectsArray[projectClassNumber].getTasks();
     console.log(projectsArray[projectClassNumber].tasks);
     showTaskList(tasksFromGivenProject)
+    clearTaskForm();
 } 
 
 function showTaskList(tasksArray) {
@@ -94,4 +104,20 @@ function showTaskList(tasksArray) {
         });
     }
 }
+
+function clearTaskForm() {
+    const taskForm = document.querySelector(".task-form");
+    taskForm.innerHTML='';
+}
+
+function clearTaskList() {
+    const taskList=document.querySelector('.task-ul');
+    taskList.innerHTML='';
+}
+
+function removeTaskButton() {
+    let removedButton=document.querySelector('.task-button');
+    removedButton.remove();
+}
+
 export default loadTaskContent;
