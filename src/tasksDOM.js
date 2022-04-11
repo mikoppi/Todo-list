@@ -13,9 +13,6 @@ function loadTaskContent(e) {
     let title=document.querySelector('.content-title');
     title.innerText=projectsArray[projectClassNumber].getName();
     const createTaskButton=document.querySelector('.task-button');
-    if (projectsArray.length==0) {
-    createTaskButton.setAttribute('hidden');
-    }
     createTaskButton.removeAttribute('hidden');
     //createTaskButton.classList.add(`task-button-${projectClassNumber}`);
     //createTaskButton.innerText='Add task';
@@ -115,9 +112,23 @@ function clearTaskList() {
     taskList.innerHTML='';
 }
 
+export function clearTaskContent() {
+    const taskForm = document.querySelector(".task-form");
+    taskForm.innerHTML='';
+
+    const taskList=document.querySelector('.task-ul');
+    taskList.innerHTML='';
+
+    let removedButton=document.querySelector('.task-button');
+    removedButton.hidden=true;
+
+    let title=document.querySelector('.content-title');
+    title.innerText='';
+}
+
 function removeTaskButton() {
     let removedButton=document.querySelector('.task-button');
-    removedButton.remove();
+    removedButton.hidden=true;
 }
 
 export default loadTaskContent;

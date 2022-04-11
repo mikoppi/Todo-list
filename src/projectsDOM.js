@@ -1,5 +1,6 @@
 import loadTaskContent from "./tasksDOM";
-import Project from "./createProject"
+import Project from "./createProject";
+import { clearTaskContent } from "./tasksDOM";
 
 export let projectsArray=[];
 
@@ -54,6 +55,7 @@ function showProjectList() {
         deleteButton.addEventListener('click',function() {
             let deleteIndex=deleteButton.className;
             projectsArray.splice(deleteIndex,1)
+            clearTaskContent();
             showProjectList();
         });
     }
