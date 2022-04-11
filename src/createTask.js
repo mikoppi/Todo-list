@@ -22,8 +22,8 @@ class CreateTask {
         return this.description;
     }
 
-    setDate() {
-        this.dueDate=this.dueDate;
+    setDate(dueDate) {
+        this.dueDate=dueDate;
     }
 
     getDate() {

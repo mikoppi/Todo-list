@@ -69,7 +69,7 @@ function addTaskToArray(title,description,dueDate, projectClassNumber) {
     clearTaskForm();
 } 
 
-function showTaskList(tasksArray) {
+export function showTaskList(tasksArray) {
     const taskList=document.querySelector('.task-ul');
     taskList.innerHTML='';
     for (let i=0;i<tasksArray.length;i++) {
@@ -126,9 +126,5 @@ export function clearTaskContent() {
     title.innerText='';
 }
 
-function removeTaskButton() {
-    let removedButton=document.querySelector('.task-button');
-    removedButton.hidden=true;
-}
 
 export default loadTaskContent;
