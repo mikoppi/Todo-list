@@ -14,14 +14,26 @@ function loadTaskContent(e) {
     title.innerText=projectsArray[projectClassNumber].getName();
     const createTaskButton=document.querySelector('.task-button');
     createTaskButton.removeAttribute('hidden');
-    //createTaskButton.classList.add(`task-button-${projectClassNumber}`);
-    //createTaskButton.innerText='Add task';
     taskContent.prepend(title);
 
     createTaskButton.addEventListener('click', (event) => ((arg) => {
         showTaskForm(event, arg);
       })(projectClassNumber));
 
+}
+
+export function loadAllTaskContent(index) {
+    //clearTaskForm();
+    let removedButton=document.querySelector('.task-button');
+    removedButton.hidden=true;
+    let projectClassNumber=`${index}`;
+    console.log(projectClassNumber)
+    showAllTaskList(projectsArray[projectClassNumber].getTasks());
+    const taskContent=document.querySelector('.right-content');
+    const taskList=document.querySelector('.task-ul');
+    let title=document.querySelector('.content-title');
+    title.innerText='All tasks';
+    taskContent.prepend(title);
 }
 
 function showTaskForm(e,projectClassNumber) {
@@ -70,26 +82,61 @@ function addTaskToArray(title,description,dueDate, projectClassNumber) {
 } 
 
 export function showTaskList(tasksArray) {
+    console.log('jee');
     const taskList=document.querySelector('.task-ul');
     taskList.innerHTML='';
     for (let i=0;i<tasksArray.length;i++) {
         let taskExample=document.createElement('li');
-        taskList.appendChild(taskExample);
-
+        
         let taskTitlePara=document.createElement('p');
         taskTitlePara.innerText=`${tasksArray[i].title}`;
         taskExample.appendChild(taskTitlePara);
-
+        
         let taskDescriptionPara=document.createElement('p');
         taskDescriptionPara.innerText=`${tasksArray[i].description}`;
         taskExample.appendChild(taskDescriptionPara);
-
+        
         let taskDatePara=document.createElement('p');
         taskDatePara.innerText=`${tasksArray[i].dueDate}`;
         taskExample.appendChild(taskDatePara);
-
+        
         taskExample.classList.add(i);
+        taskList.appendChild(taskExample);
+        
+        let deleteTaskButton=document.createElement('button');
+        deleteTaskButton.classList.add(i);
+        deleteTaskButton.innerText='Delete';
+        taskExample.appendChild(deleteTaskButton);
+        deleteTaskButton.addEventListener('click',function() {
+            let deleteIndex=deleteTaskButton.className;
+            tasksArray.splice(deleteIndex,1)
+            showTaskList(tasksArray);
+        });
+    }
+}
 
+export function showAllTaskList(tasksArray) {
+    console.log('jepa');
+    const taskList=document.querySelector('.task-ul');
+    //taskList.innerHTML='';
+    for (let i=0;i<tasksArray.length;i++) {
+        let taskExample=document.createElement('li');
+        
+        let taskTitlePara=document.createElement('p');
+        taskTitlePara.innerText=`${tasksArray[i].title}`;
+        taskExample.appendChild(taskTitlePara);
+        
+        let taskDescriptionPara=document.createElement('p');
+        taskDescriptionPara.innerText=`${tasksArray[i].description}`;
+        taskExample.appendChild(taskDescriptionPara);
+        
+        let taskDatePara=document.createElement('p');
+        taskDatePara.innerText=`${tasksArray[i].dueDate}`;
+        taskExample.appendChild(taskDatePara);
+        
+        taskExample.classList.add(i);
+        taskList.appendChild(taskExample);
+        
         let deleteTaskButton=document.createElement('button');
         deleteTaskButton.classList.add(i);
         deleteTaskButton.innerText='Delete';
@@ -107,7 +154,7 @@ function clearTaskForm() {
     taskForm.innerHTML='';
 }
 
-function clearTaskList() {
+export function clearTaskList() {
     const taskList=document.querySelector('.task-ul');
     taskList.innerHTML='';
 }

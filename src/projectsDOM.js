@@ -44,7 +44,7 @@ function showProjectList() {
     for (let i=0;i<projectsArray.length;i++) {
         let projectExample=document.createElement('li');
         projectExample.classList.add(i);
-        projectExample.addEventListener('click', loadTaskContent);
+        projectExample.addEventListener('click', loadTaskContent),{ once: true };
         projectExample.innerText=projectsArray[i].getName();
         projectList.appendChild(projectExample);
 

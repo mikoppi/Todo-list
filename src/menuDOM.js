@@ -1,5 +1,7 @@
-import { showTaskList } from "./tasksDOM";
+import loadTaskContent, { showTaskList } from "./tasksDOM";
 import { projectsArray } from "./projectsDOM.js";
+import { loadAllTaskContent } from "./tasksDOM";
+import { clearTaskList } from "./tasksDOM";
 
 export function showAllTasks() {
     const allTasksButton=document.querySelector('.all-tasks');
@@ -7,8 +9,9 @@ export function showAllTasks() {
 }
 
 function generateAllTasks(e) {
+    clearTaskList();
     for (let i=0;i<projectsArray.length;i++) {
-        showTaskList(projectsArray[i].getTasks());
-        //console.log(projectsArray);
+        loadAllTaskContent(i);
+        
     }
 }
