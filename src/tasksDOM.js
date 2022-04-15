@@ -1,6 +1,7 @@
 import CreateTask from "./createTask";
 import Project from "./createProject";
 import { projectsArray } from "./projectsDOM.js";
+import { generateAllTasks } from "./menuDOM";
 
 
 function loadTaskContent(e) {
@@ -34,6 +35,36 @@ export function loadAllTaskContent(index) {
     let title=document.querySelector('.content-title');
     title.innerText='All tasks';
     taskContent.prepend(title);
+}
+
+export function loadTodaysTaskContent(index) {
+    let today = new Date().toISOString().slice(0, 10);
+    let todayTasks=[];
+    let tasksFromGivenProject=projectsArray[index].getTasks();
+    for (let task of tasksFromGivenProject) {
+        let dueDate=task.getDate();
+        if (today===dueDate) {
+            todayTasks.push(task)
+      }
+      showAllTaskList(todayTasks)
+    }
+}
+
+export function loadWeeklyTaskContent(index) {
+    let today = new Date();
+    let weeklyTasks=[];
+    const weekFromToday = new Date();
+    weekFromToday.setDate(weekFromToday.getDate() + 7);
+    let tasksFromGivenProject=projectsArray[index].getTasks();
+    for (let task of tasksFromGivenProject) {
+        let dueDate=task.getDate();
+        let convertDueDate=new Date(dueDate);
+        if (convertDueDate >= today.setHours(0,0,0,0) && convertDueDate <= weekFromToday) {
+            weeklyTasks.push(task)
+      }
+      showAllTaskList(weeklyTasks)
+    }
+
 }
 
 function showTaskForm(e,projectClassNumber) {
@@ -144,10 +175,13 @@ export function showAllTaskList(tasksArray) {
         deleteTaskButton.addEventListener('click',function() {
             let deleteIndex=deleteTaskButton.className;
             tasksArray.splice(deleteIndex,1)
-            showTaskList(tasksArray);
+            //showAllTaskList(tasksArray);
+            generateAllTasks();
         });
     }
 }
+
+
 
 function clearTaskForm() {
     const taskForm = document.querySelector(".task-form");
