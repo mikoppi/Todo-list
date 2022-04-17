@@ -10,7 +10,13 @@
     align-items:center;
     justify-content: center;
     width: 100vw;
+}
 
+.dropdown {
+    position: absolute;
+    left: 0;
+    
+    
 }
 
 .content {

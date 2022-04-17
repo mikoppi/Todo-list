@@ -6,6 +6,17 @@ import {
 } from "./tasksDOM";
 import { projectsArray } from "./projectsDOM.js";
 
+const dropDownButton=document.querySelector('.dropdown');
+dropDownButton.addEventListener('click',() => {
+    const leftContent=document.getElementsByClassName('left-content');
+    if (leftContent[0].style.visibility==='visible') {
+        leftContent[0].style.visibility='hidden';
+    } else {
+        leftContent[0].style.visibility='visible';
+    }
+})
+
+
 export function showAllTasks() {
   const allTasksButton = document.querySelector(".all-tasks");
   allTasksButton.addEventListener("click", generateAllTasks);
