@@ -24,9 +24,7 @@ function loadTaskContent(e) {
 }
 
 export function loadAllTaskContent(index) {
-    //clearTaskForm();
-    let removedButton=document.querySelector('.task-button');
-    removedButton.hidden=true;
+    deleteAddTaskButton()
     let projectClassNumber=`${index}`;
     console.log(projectClassNumber)
     showAllTaskList(projectsArray[projectClassNumber].getTasks());
@@ -38,19 +36,21 @@ export function loadAllTaskContent(index) {
 }
 
 export function loadTodaysTaskContent(index) {
+    deleteAddTaskButton()
     let today = new Date().toISOString().slice(0, 10);
-    let todayTasks=[];
     let tasksFromGivenProject=projectsArray[index].getTasks();
+    let todayTasks=[];
     for (let task of tasksFromGivenProject) {
         let dueDate=task.getDate();
         if (today===dueDate) {
             todayTasks.push(task)
-      }
-      showAllTaskList(todayTasks)
+        }
+    showAllTaskList(todayTasks);
     }
 }
 
 export function loadWeeklyTaskContent(index) {
+    deleteAddTaskButton();
     let today = new Date();
     let weeklyTasks=[];
     const weekFromToday = new Date();
@@ -177,6 +177,8 @@ export function showAllTaskList(tasksArray) {
             tasksArray.splice(deleteIndex,1)
             //showAllTaskList(tasksArray);
             generateAllTasks();
+            //generateTodayTasks();
+            //generateWeeklyTasks();
         });
     }
 }
@@ -191,6 +193,12 @@ function clearTaskForm() {
 export function clearTaskList() {
     const taskList=document.querySelector('.task-ul');
     taskList.innerHTML='';
+}
+
+function deleteAddTaskButton() {
+
+    let removedButton=document.querySelector('.task-button');
+    removedButton.hidden=true;
 }
 
 export function clearTaskContent() {

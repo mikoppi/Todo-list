@@ -3,7 +3,6 @@ export default class Project {
       this.name = name
       this.tasks = []
     }
-  
     setName(name) {
       this.name = name
     }

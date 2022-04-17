@@ -1,9 +1,10 @@
-import loadTaskContent, { showTaskList } from "./tasksDOM";
+import loadTaskContent, { showAllTaskList, showTaskList } from "./tasksDOM";
 import { projectsArray } from "./projectsDOM.js";
 import { loadAllTaskContent } from "./tasksDOM";
 import { clearTaskList } from "./tasksDOM";
 import { loadTodaysTaskContent } from "./tasksDOM";
 import { loadWeeklyTaskContent } from "./tasksDOM";
+import { todayTasks } from "./tasksDOM";
 
 export function showAllTasks() {
     const allTasksButton=document.querySelector('.all-tasks');
@@ -26,8 +27,7 @@ export function showTodaysTasks() {
 export function generateTodayTasks(e) {
     clearTaskList();
     for (let i=0;i<projectsArray.length;i++) {
-        loadTodaysTaskContent(i)
-        
+        loadTodaysTaskContent(i)   
     }
 }
 
