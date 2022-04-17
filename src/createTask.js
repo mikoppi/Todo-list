@@ -1,34 +1,34 @@
 class CreateTask {
-    constructor(title,description,dueDate,priorityNumber) {
-        this.title=title;
-        this.description=description;
-        this.dueDate=dueDate;
-        this.priorityNumber=priorityNumber;
-    }
+  constructor(title, description, dueDate, priorityNumber) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priorityNumber = priorityNumber;
+  }
 
-    setTitle(title) {
-        this.title=title;    
-    }
+  setTitle(title) {
+    this.title = title;
+  }
 
-    getTitle() {
-        return this.title;
-    }
+  getTitle() {
+    return this.title;
+  }
 
-    setDesc(description) {
-        this.description=description;
-    }
-    
-    getDesc() {
-        return this.description;
-    }
+  setDesc(description) {
+    this.description = description;
+  }
 
-    setDate(dueDate) {
-        this.dueDate=dueDate;
-    }
+  getDesc() {
+    return this.description;
+  }
 
-    getDate() {
-        return this.dueDate;
-    }
+  setDate(dueDate) {
+    this.dueDate = dueDate;
+  }
+
+  getDate() {
+    return this.dueDate;
+  }
 }
 
 export default CreateTask;
