@@ -13,6 +13,7 @@ dropDownButton.addEventListener('click',() => {
         leftContent[0].style.visibility='hidden';
     } else {
         leftContent[0].style.visibility='visible';
+
     }
 })
 

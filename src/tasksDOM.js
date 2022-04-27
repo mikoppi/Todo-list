@@ -40,13 +40,14 @@ export function loadTodaysTaskContent(index) {
   const today = new Date().toISOString().slice(0, 10);
   const tasksFromGivenProject = projectsArray[index].getTasks();
   const todayTasks = [];
+  // eslint-disable-next-line no-restricted-syntax
   for (const task of tasksFromGivenProject) {
     const dueDate = task.getDate();
     if (today === dueDate) {
       todayTasks.push(task);
     }
-    showAllTaskList(todayTasks);
   }
+  printTasks(todayTasks);
 }
 
 export function loadWeeklyTaskContent(index) {
@@ -56,6 +57,7 @@ export function loadWeeklyTaskContent(index) {
   const weekFromToday = new Date();
   weekFromToday.setDate(weekFromToday.getDate() + 7);
   const tasksFromGivenProject = projectsArray[index].getTasks();
+  // eslint-disable-next-line no-restricted-syntax
   for (const task of tasksFromGivenProject) {
     const dueDate = task.getDate();
     const convertDueDate = new Date(dueDate);
@@ -65,8 +67,8 @@ export function loadWeeklyTaskContent(index) {
     ) {
       weeklyTasks.push(task);
     }
-    showAllTaskList(weeklyTasks);
   }
+  printTasks(weeklyTasks);
 }
 
 function showTaskForm(e, projectClassNumber) {
@@ -148,6 +150,7 @@ export function showTaskList(tasksArray) {
   }
 }
 
+
 export function showAllTaskList(tasksArray) {
   console.log("jepa");
   const taskList = document.querySelector(".task-ul");
@@ -158,18 +161,18 @@ export function showAllTaskList(tasksArray) {
     const taskTitlePara = document.createElement("p");
     taskTitlePara.innerText = `${tasksArray[i].title}`;
     taskExample.appendChild(taskTitlePara);
-
+    
     const taskDescriptionPara = document.createElement("p");
     taskDescriptionPara.innerText = `${tasksArray[i].description}`;
     taskExample.appendChild(taskDescriptionPara);
-
+    
     const taskDatePara = document.createElement("p");
     taskDatePara.innerText = `${tasksArray[i].dueDate}`;
     taskExample.appendChild(taskDatePara);
-
+    
     taskExample.classList.add(i);
     taskList.appendChild(taskExample);
-
+    
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.classList.add(i);
     deleteTaskButton.innerText = "Delete";
@@ -182,6 +185,28 @@ export function showAllTaskList(tasksArray) {
       // generateTodayTasks();
       // generateWeeklyTasks();
     });
+  }
+}
+
+function printTasks(tasksArray) {
+  const taskList = document.querySelector(".task-ul");
+  for (let i = 0; i < tasksArray.length; i++) {
+    const taskExample = document.createElement("li");
+
+    const taskTitlePara = document.createElement("p");
+    taskTitlePara.innerText = `${tasksArray[i].title}`;
+    taskExample.appendChild(taskTitlePara);
+    
+    const taskDescriptionPara = document.createElement("p");
+    taskDescriptionPara.innerText = `${tasksArray[i].description}`;
+    taskExample.appendChild(taskDescriptionPara);
+    
+    const taskDatePara = document.createElement("p");
+    taskDatePara.innerText = `${tasksArray[i].dueDate}`;
+    taskExample.appendChild(taskDatePara);
+    
+    taskExample.classList.add(i);
+    taskList.appendChild(taskExample);
   }
 }
 
